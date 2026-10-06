@@ -1,0 +1,25 @@
+services:
+  vulnerable:
+    image: kestra/kestra:v1.3.20
+    user: "root"
+    command: server standalone
+    environment:
+      KESTRA_CONFIGURATION: |
+        kestra:
+          server:
+            basic-auth:
+              username: "lab@kestra.io"
+              password: "Labpass123!"
+          repository:
+            type: h2
+          storage:
+            type: local
+            local:
+              base-path: "/app/storage"
+          queue:
+            type: h2
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
+    ports:
+      - "8090:8080"

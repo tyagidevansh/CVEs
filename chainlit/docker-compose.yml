@@ -1,0 +1,6 @@
+services:
+  vulnerable:
+    build: .
+    image: chainlit-vuln
+    ports:
+      - "8000:8000"

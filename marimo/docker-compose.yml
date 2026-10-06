@@ -1,0 +1,6 @@
+services:
+  vulnerable:
+    build: .
+    image: marimo-vuln
+    ports:
+      - "8080:8080"
