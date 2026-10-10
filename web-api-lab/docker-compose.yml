@@ -1,0 +1,19 @@
+services:
+  vulnerable:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: "5000"
+      SECURE: "0"
+      DB_PATH: /tmp/notevault.db
+
+  secure:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      PORT: "5000"
+      SECURE: "1"
+      DB_PATH: /tmp/notevault-secure.db
+      SECRET_KEY: "lab-secure-key-replace-in-prod-9f8c"

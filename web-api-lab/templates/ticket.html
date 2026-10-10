@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block title %}Ticket #{{ ticket.id }}{% endblock %}{% block body %}
+<h1>#{{ ticket.id }} {{ ticket.title }}</h1>
+<p class="muted">owner_id={{ ticket.owner_id }} · {% if ticket.is_private %}private{% else %}shared{% endif %}</p>
+<p>{{ ticket.body }}</p>
+<h2>Comments</h2>
+<div id="comments">{% for c in comments %}<div class="comment"><b>{{ c.author }}</b>:
+{% if secure %}{{ c.body }}{% else %}{{ c.body|safe }}{% endif %}</div>{% endfor %}</div>
+<h3>Add a comment</h3>
+<form id="cform"><input id="cbody" placeholder="write a reply…" size="60"><button>Post</button></form>
+<script>
+document.getElementById('cform').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const body = document.getElementById('cbody').value;
+  const r = await fetch('/api/tickets/{{ ticket.id }}/comments', {method:'POST',
+    headers:{'Content-Type':'application/json'}, body: JSON.stringify({body})});
+  if (r.ok) location.reload(); else alert(await r.text());
+});
+</script>
+<p><a href="/dashboard">← back</a></p>
+{% endblock %}

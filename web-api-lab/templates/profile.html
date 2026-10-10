@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Profile{% endblock %}{% block body %}
+<h1>{{ user.username }}</h1>
+<p class="muted">{{ user.email }} · role={{ user.role }}</p>
+<h2>Avatar from URL</h2>
+<p class="muted">Paste an image URL and the server will fetch it for you.</p>
+<form id="aform"><input id="aurl" size="60" placeholder="https://…"><button>Fetch</button></form>
+<pre id="aout" class="muted"></pre>
+<script>
+document.getElementById('aform').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = document.getElementById('aurl').value;
+  const r = await fetch('/api/avatar/fetch', {method:'POST',
+    headers:{'Content-Type':'application/json'}, body: JSON.stringify({url})});
+  document.getElementById('aout').textContent = await r.text();
+});
+</script>
+<p><a href="/dashboard">← back</a></p>
+{% endblock %}

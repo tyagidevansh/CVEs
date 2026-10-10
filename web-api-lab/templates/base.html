@@ -1,0 +1,8 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>NoteVault — {% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="/static/style.css"></head>
+<body><div class="wrap">
+<header><span class="logo">NoteVault</span>
+<span class="tag">{% if secure %}SECURE BUILD{% else %}helpdesk notes{% endif %}</span></header>
+{% block body %}{% endblock %}
+</div></body></html>

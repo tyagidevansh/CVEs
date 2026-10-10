@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block body %}
+<h1>Hi, {{ user.username }}</h1>
+<p><a href="/profile">Profile</a> · <a href="/logout">Logout</a></p>
+<h2>Search tickets</h2>
+<form method="get" action="/dashboard"><input name="q" value="{{ q }}" placeholder="search titles…"><button>Search</button></form>
+<ul>{% for t in tickets %}<li><a href="/ticket/{{ t.id }}">#{{ t.id }} {{ t.title }}</a></li>{% else %}<li class="muted">no results</li>{% endfor %}</ul>
+<h2>Your tickets</h2>
+<ul>{% for t in mine %}<li><a href="/ticket/{{ t.id }}">#{{ t.id }} {{ t.title }}</a></li>{% endfor %}</ul>
+{% endblock %}
